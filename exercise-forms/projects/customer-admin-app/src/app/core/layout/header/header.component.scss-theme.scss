@@ -1,0 +1,20 @@
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+
+@mixin my-org-header-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  my-org-header {
+    mat-toolbar {
+      button {
+        &.active {
+          background-color: mat.get-color-from-palette($primary, lighter) !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+
+@mixin my-org-footer-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  my-org-footer {
+    color: mat.get-color-from-palette($foreground, text);
+    background-color: mat.get-color-from-palette($background, status-bar);
+
+    a {
+      color: mat.get-color-from-palette($primary);
+
+      &:hover {
+        color: mat.get-color-from-palette($primary, darker);
+      }
+    }
+  }
+}
