@@ -1,0 +1,9 @@
+{
+  "integrationFolder": "projects/customer-admin-app/cypress/integration",
+  "supportFile": "projects/customer-admin-app/cypress/support/index.ts",
+  "videosFolder": "projects/customer-admin-app/cypress/videos",
+  "screenshotsFolder": "projects/customer-admin-app/cypress/screenshots",
+  "pluginsFile": "projects/customer-admin-app/cypress/plugins/index.ts",
+  "fixturesFolder": "projects/customer-admin-app/cypress/fixtures",
+  "baseUrl": "http://localhost:4200"
+}

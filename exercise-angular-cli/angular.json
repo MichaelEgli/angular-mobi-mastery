@@ -132,7 +132,7 @@
             "tsConfig": [
               "projects/customer-admin-app/tsconfig.app.json",
               "projects/customer-admin-app/tsconfig.spec.json",
-              "projects/customer-admin-app/e2e/tsconfig.json"
+              "projects/customer-admin-app/cypress/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -140,15 +140,36 @@
           }
         },
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "builder": "@cypress/schematic:cypress",
           "options": {
-            "protractorConfig": "projects/customer-admin-app/e2e/protractor.conf.js",
-            "devServerTarget": "customer-admin-app:serve"
+            "devServerTarget": "customer-admin-app:serve",
+            "watch": true,
+            "headless": false
           },
           "configurations": {
             "production": {
               "devServerTarget": "customer-admin-app:serve:production"
             }
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "customer-admin-app:serve",
+            "configFile": "projects/customer-admin-app/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "customer-admin-app:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/customer-admin-app/cypress.json"
           }
         }
       }
