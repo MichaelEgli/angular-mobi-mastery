@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card [class.vip]="customer.isVip===true">
     <p>{{customer.name}}</p>
     <p>{{customer.surname}}</p>
 </mat-card>
