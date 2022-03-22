@@ -15,4 +15,8 @@ export class CustomerItemComponent implements OnInit {
     console.log('OnInit', this.customer);
   }
 
+  sayHello(customer: Customer) {
+    console.log('sayHello from', customer.name + ' ' + customer.surname);
+  }
+
 }
