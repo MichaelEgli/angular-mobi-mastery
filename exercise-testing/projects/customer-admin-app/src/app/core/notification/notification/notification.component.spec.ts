@@ -27,7 +27,7 @@ fdescribe('NotificationComponent', () => {
 
   // TODO 8: implement "getNotifications" helper which will get notifications from DOM
   // using fixture debugElement "queryAll" method where we will pass "By.css" method and a css selector for "mat-card" element
-  const getNotifications = () => null;
+  const getNotifications = () => fixture.debugElement.queryAll(By.css('mat-card'));
 
   // TODO 10: implement "getNotificationByIndex" method which will get notifications as previous method but return n-th item based on the "notificationIndex"
   // (use array access, eg items[index])
@@ -76,6 +76,7 @@ fdescribe('NotificationComponent', () => {
   it('should render notifications', () => {
     // TODO 9: expect the number of rendered notifications (using previously defined "getNotifications()" method) to correspond to the count of mock notifications in the data created above
     // hint: ALWAYS try to break test to see if it is really working (eg with the wrong number of notifications)
+    expect(getNotifications().length).toBe(2);
     // TODO 12: expect second notifications text to be value as in the data created above
   });
 
