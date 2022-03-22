@@ -2,5 +2,6 @@
     <p>{{customer.name}}</p>
     <p>{{customer.surname}}</p>
     <button mat-stroked-button (click)="sayHello(customer)">Say hello</button>
+    <button mat-raised-button class="accent" (click)="purchaseItem(customer)">Purchase item</button>
 </mat-card>
 <mat-icon *ngIf="customer.isVip">star</mat-icon>

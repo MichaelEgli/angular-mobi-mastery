@@ -19,4 +19,8 @@ export class CustomerItemComponent implements OnInit {
     console.log('sayHello from', customer.name + ' ' + customer.surname);
   }
 
+  purchaseItem(customer: Customer) {
+    console.log('purchase');
+  }
+
 }
