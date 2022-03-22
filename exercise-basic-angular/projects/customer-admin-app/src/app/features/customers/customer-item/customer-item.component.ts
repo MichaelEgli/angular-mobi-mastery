@@ -23,6 +23,7 @@ export class CustomerItemComponent implements OnInit {
 
   purchaseItem(customer: Customer) {
     console.log('purchase');
+    this.purchase.emit({customerId: customer.id, order: Math.ceil(Math.random() * 1000)});
   }
 
 }
