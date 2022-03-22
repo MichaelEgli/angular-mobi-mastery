@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Customer } from '../model/customers';
+import { Purchase } from '../model/purchase';
 
 @Component({
   selector: 'my-org-customer-item',
@@ -8,6 +9,7 @@ import { Customer } from '../model/customers';
 })
 export class CustomerItemComponent implements OnInit {
   @Input() customer: Customer;
+  @Output() purchase = new EventEmitter<Purchase>();
 
   constructor() { }
 
