@@ -8,6 +8,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { Notification } from '../notification';
 import { NotificationComponent } from './notification.component';
 import { ReactiveNotificationService } from '../reactive-notification.service';
+import { query } from '@angular/animations';
 
 // TODO 3: create mock notification data, it's an array of "Notification" objects
 // please type it and create one info and one error mock notification
@@ -31,14 +32,14 @@ fdescribe('NotificationComponent', () => {
 
   // TODO 10: implement "getNotificationByIndex" method which will get notifications as previous method but return n-th item based on the "notificationIndex"
   // (use array access, eg items[index])
-  const getNotificationByIndex = (notificationIndex) => null;
+  const getNotificationByIndex = notificationIndex => getNotifications()[notificationIndex];
 
   // TODO 11: implement "getNotificationText" method by calling previously defined "getNotificationByIndex" continuing by using "query" with "By.css" for "p" tag
   // then retrieve its "nativeElement", access the "textContent" and use "trim()" method
-  const getNotificationText = (notificationIndex) => null;
+  const getNotificationText = notificationIndex => getNotificationByIndex(notificationIndex).query(By.css('p'));
 
   // TODO 13: implement "getNotificationButton" method by calling previously defined "getNotificationByIndex" continuing by using "query" with "By.css" for "button" tag
-  const getNotificationButton = (notificationIndex) => null;
+  const getNotificationButton = notificationIndex => getNotificationByIndex(notificationIndex).query(By.css('button'));
 
   beforeEach(waitForAsync(() => {
     // TODO 5: create "mockNotificationService" as a new empty object
@@ -82,6 +83,7 @@ fdescribe('NotificationComponent', () => {
 
   it('it removes notification when button is clicked', () => {
     // TODO 14: retrieve button of the error notification (which index?) access its "native" element and call "click()" method
+    getNotificationButton(1).nativeElement.click();
     // TODO 15: call "detectChanges()" method of the "fixture"
     // TODO 16: expect that the "remove" method of the "mockNotificationsService" has been called once
     // TODO 17: expect that the "remove" method of the "mockNotificationsService" has been called with the removed notification
