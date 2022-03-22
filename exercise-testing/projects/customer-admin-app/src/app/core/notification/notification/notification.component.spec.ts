@@ -11,13 +11,17 @@ import { ReactiveNotificationService } from '../reactive-notification.service';
 
 // TODO 3: create mock notification data, it's an array of "Notification" objects
 // please type it and create one info and one error mock notification
-const MOCK_NOTIFICATIONS = undefined;
+const MOCK_NOTIFICATIONS = [
+  {id: 1, type: 'info', message: 'test info'}, 
+  {id: 2, type: 'error', message: 'test error'}
+];
 
 // TODO 2: rename "describe" to "fdescribe" to only run this test suite in watch mode
-describe('NotificationComponent', () => {
+fdescribe('NotificationComponent', () => {
   let component: NotificationComponent;
   let fixture: ComponentFixture<NotificationComponent>;
   // TODO 4: declare re-assignable "mockNotificationService" variable with "Partial" type of the real service used by the component (see which service class is injected in the component constructor)
+  let mockNotificationService: Partial<ReactiveNotificationService>;
 
   // TODO 8: implement "getNotifications" helper which will get notifications from DOM
   // using fixture debugElement "queryAll" method where we will pass "By.css" method and a css selector for "mat-card" element
