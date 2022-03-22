@@ -23,6 +23,8 @@ fdescribe('NotificationComponent', () => {
   // TODO 4: declare re-assignable "mockNotificationService" variable with "Partial" type of the real service used by the component (see which service class is injected in the component constructor)
   let mockNotificationService: Partial<ReactiveNotificationService>;
 
+  let mySpy: any;
+
   // TODO 8: implement "getNotifications" helper which will get notifications from DOM
   // using fixture debugElement "queryAll" method where we will pass "By.css" method and a css selector for "mat-card" element
   const getNotifications = () => null;
@@ -42,14 +44,21 @@ fdescribe('NotificationComponent', () => {
     // TODO 5: create "mockNotificationService" as a new empty object
     // and add "notifications" property with the observable value "of()" MOCK_NOTIFICATIONS
     // also add remove method (try using IDE code completion) and leave it empty
+    const mockNotificationService = {
+      notifications: of(MOCK_NOTIFICATIONS),
+    };
 
     // TODO 6: use Jasmine "spyOn" method to spy on "mockNotificationService" "remove" method
-
+    
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, SharedModule],
       declarations: [NotificationComponent],
       providers: [
         // TODO 7: provide "mockNotificationService" as a value for the "ReactiveNotificationService" token
+        {
+          provide: ReactiveNotificationService,
+          useValue: mockNotificationService
+        }
       ],
     }).compileComponents();
   }));
