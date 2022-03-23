@@ -18,6 +18,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   constructor(
     // TODO 8: inject "activatedRoute" of type "ActivatedRoute"
+    private activatedRouter: ActivatedRoute,
     private customersBackendService: CustomersBackendService,
   ) {}
 
@@ -26,7 +27,18 @@ export class CustomerDetailsComponent implements OnInit {
     // map (RxJs operator) it into "id" (from the "paramMap") and then
     // switchMap (RxJs operator) the "id" into "customersBackendService.get" requests
     // hint: you might need to convert string into number, use parseInt
-    this.customer = undefined;
+    console.log('tmp', this.activatedRouter.paramMap);
+    this.customer = this.activatedRouter.paramMap.pipe(
+      map(paramMap => paramMap.get('id')),
+      switchMap(id => this.customersBackendService.get(parseInt(id, 10)))
+    );
+/*     this.customer = combineLatest([
+      this.activatedRouter.paramMap,
+      this.reloadTrigger.asObservable().pipe(startWith('int')),
+      ]).pipe(
+        map(([paramMap]) => paramMap.get('id')),
+        switchMap(id => this.customersBackendService.get(parseInt(id, 10)))
+      ); */
 
     // TODO 10: OPTIONAL
     // if you tried to remove customer tag, you would notice it is not removed until the customer detail page is refreshed
