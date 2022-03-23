@@ -11,7 +11,9 @@ import { NotificationType, Notification, NotificationAction } from './notificati
 export class ReactiveNotificationService {
   // TODO 7: in reactive programming process is usually triggered by some events
   // TODO 8: create "private" instance property with the name "addNotificationTrigger" which should be initialized with the value of "new ReplaySubject<NotificationAction>()"
+  private addNotificationTrigger = new ReplaySubject<NotificationAction>();
   // TODO 9: create "private" instance property with the name "removeNotificationTrigger" which should be initialized with the value of "new ReplaySubject<NotificationAction>()"
+  private removeNotificationTrigger = new ReplaySubject<NotificationAction>();
 
   notifications: Observable<Notification[]>;
 
@@ -42,6 +44,7 @@ export class ReactiveNotificationService {
   remove(notification: Notification) {
     // TODO 10: fire next "removeNotificationTrigger" by calling its "next()" method
     // and pass in object with "type: 'remove'", "notification" (from this function argument) and "timeout" 0 (hint: use editor code completion or have a look at NotificationAction interface)
+    this.removeNotificationTrigger.next({type: 'remove', notification, timeout: 0});
   }
 
   private addNotification(type: NotificationType, message: string, timeout?: number) {
@@ -54,5 +57,11 @@ export class ReactiveNotificationService {
     // TODO 13: in case function received "timeout", which is an optional argument of this function
     // fire next "removeNotificationTrigger" by calling its "next()" method
     // and pass in object with "type: 'remove'", "notification" (the one we just created) and the received "timeout"
+    const notification: Notification = { id: this.uuidService.generate(), type: type, message: message };
+    this.addNotificationTrigger.next({type: 'add', notification, timeout});
+
+    if (timeout) {
+      this.removeNotificationTrigger.next({type: 'remove', notification, timeout});
+    }
   }
 }
