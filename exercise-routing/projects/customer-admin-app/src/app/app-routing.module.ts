@@ -13,10 +13,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/customers/customers.module').then(m => m.CustomersModule),
   },
+  {
+    path: '',
+    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
+  },
   // TODO 5: in browser, try navigating to nonexistent route, eg http://localhost:4200/wrong and see what happens (browser console)
   // TODO 6: implement catch all route '**' that redirects to 'home' and navigate to nonexistent route, eg http://localhost:4200/wrong
   // what would happen if it wasn't implemented as last?
   // try to put it as first route and then navigate to customers using app navigation button in header
+  {
+    path: '**',
+    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
+  }
 ];
 
 @NgModule({
