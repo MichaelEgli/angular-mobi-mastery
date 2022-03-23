@@ -19,14 +19,31 @@ export class ReactiveNotificationService {
 
   constructor(private uuidService: UuidService) {
     // TODO 14: Define const "addStream" with value of "this.addNotificationTrigger.asObservable()"
+    const addStream = this.addNotificationTrigger.asObservable();
     // TODO 15: Define const "removeStream" with value of "this.removeNotificationTrigger.asObservable().pipe(mergeMap(action => of(action).pipe(delay(action.timeout || 0))))"
     // this will basically delay that trigger by the value of timeout if timeout was provided
+    const removeStream = this.removeNotificationTrigger.asObservable();
     // TODO 16: Initialize value of "this.notifications" with a following stream
     // 1. use "merge" creator operator (from "rxjs" package) and pass in "addStream" and the "removeStream"
     // 2. use ".pipe()" on merge and pass in "scan" operator (from "rxjs/operators" package)
     // 3. pass following callback into the "scan" operator ... "(notifications: Notification[], action: NotificationAction) => { }, []"
     // 4. inside the function body of the callback (between { }) we have to implement logic
     //    which will add or remove received "notification" from the received "notifications" array in the immutable manner (hint use .filter() and [...original, new] )
+    this.notifications = merge(
+      this.addNotificationTrigger.asObservable(),
+      this.removeNotificationTrigger
+        .asObservable()
+        .pipe(mergeMap(action => of(action).pipe(delay(action.timeout || 0)))),
+    ).pipe(
+      scan((notifications: Notification[], action: NotificationAction) => {
+        if (action.type === 'add') {
+          return [...notifications, action.notification];
+        }
+        if (action.type === 'remove') {
+          return notifications.filter(notification => notification.id !== action.notification.id);
+        }
+      }, []),
+    );
   }
 
   info(message: string, timeout: number = 2000) {
