@@ -9,6 +9,7 @@ import { Notification } from '../notification';
 import { NotificationComponent } from './notification.component';
 import { ReactiveNotificationService } from '../reactive-notification.service';
 import { query } from '@angular/animations';
+import { DebugElement } from '@angular/core';
 
 // TODO 3: create mock notification data, it's an array of "Notification" objects
 // please type it and create one info and one error mock notification
@@ -18,6 +19,7 @@ const MOCK_NOTIFICATIONS = [
 ];
 
 // TODO 2: rename "describe" to "fdescribe" to only run this test suite in watch mode
+// use *** npm run watch ****
 fdescribe('NotificationComponent', () => {
   let component: NotificationComponent;
   let fixture: ComponentFixture<NotificationComponent>;
@@ -29,6 +31,12 @@ fdescribe('NotificationComponent', () => {
   // TODO 8: implement "getNotifications" helper which will get notifications from DOM
   // using fixture debugElement "queryAll" method where we will pass "By.css" method and a css selector for "mat-card" element
   const getNotifications = () => fixture.debugElement.queryAll(By.css('mat-card'));
+/* try to understand arrow functions
+  function getN() {
+    return fixture.debugElement.queryAll(By.css('mat-card'));
+  }
+
+  const myNots = getN();*/
 
   // TODO 10: implement "getNotificationByIndex" method which will get notifications as previous method but return n-th item based on the "notificationIndex"
   // (use array access, eg items[index])
