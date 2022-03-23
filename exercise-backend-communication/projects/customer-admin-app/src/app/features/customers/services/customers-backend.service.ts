@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { shareReplay, tap } from 'rxjs/operators';
+import { filter, shareReplay, tap } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 
@@ -19,6 +19,7 @@ export class CustomersBackendService {
     // TODO 2: create stream of all customers using http client get method (make request to RESOURCE_URL)
     // and use shareReplay RxJs operator with "bufferSize: 1" and "refCount: true" options, the stream should be stored in this.customers instance variable
     // hint: you might need to provide generic type for the .get<>() method based on the this.customers
+    this.customers = httpClient.get<Customer[]>(RESOURCE_URL).pipe(shareReplay({bufferSize: 1, refCount: true}));
   }
 
   findCustomers(query: string): Observable<Customer[]> {
@@ -26,7 +27,7 @@ export class CustomersBackendService {
     // make request to RESOURCE_URL with query param "q" with the value of the "query" argument passed in the method
     // we can pass it in the second options argument in "params: { q: query }"
     // try if it works in the UI by searching for customer using provided search field
-    return of([]); // remove this when you provide real implementation
+    return this.httpClient.get<Customer[]>(`${RESOURCE_URL}?q=${query}`);
   }
 
   get(id: number): Observable<Customer> {
