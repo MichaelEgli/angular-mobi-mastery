@@ -6,7 +6,7 @@ import { ReactiveNotificationService } from '../../../core/notification/reactive
 
 import { CustomersBackendService, RESOURCE_URL } from './customers-backend.service';
 
-describe('CustomersBackendService', () => {
+fdescribe('CustomersBackendService', () => {
   let service: CustomersBackendService;
   let httpTestingController: HttpTestingController;
 
@@ -21,12 +21,15 @@ describe('CustomersBackendService', () => {
 
     // run tests using "npm run watch" and use "fdescribe" instead of "describe" at the top of this file to only run this test
     // TODO 7: Use the "TestBed" to inject instance of "CustomersBackendService" and store it in the "service" variable
+    service = TestBed.inject(CustomersBackendService);
     // TODO 8: Use the "TestBed" to inject instance of "HttpTestingController" and store it in the "httpTestingController" variable
     // hint: use inject method
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
     // TODO 9: add "httpTestingController.verify()" expression to run after each test
+    httpTestingController.verify();
   });
 
   it('should load customer', () => {
@@ -34,11 +37,12 @@ describe('CustomersBackendService', () => {
 
     service.get(0).subscribe(customer => {
       // TODO 10: add expectation that the received "customer" will equal to the "MOCK_CUSTOMER"
+      expect(customer).toBe(MOCK_CUSTOMER);
     });
 
     // TODO 11: what kind of url should be called when we're trying to get customer with id 0 from the "RESOURCE_URL" resource?
     // (put it as a string in place of <replace-this>)
-    const req = httpTestingController.expectOne('<replace-this>');
+    const req = httpTestingController.expectOne(`${RESOURCE_URL}/0`);
     expect(req.request.method).toBe('GET');
     req.flush(MOCK_CUSTOMER);
   });

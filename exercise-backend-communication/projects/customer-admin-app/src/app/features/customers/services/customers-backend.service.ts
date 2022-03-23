@@ -34,7 +34,7 @@ export class CustomersBackendService {
     // TODO 4: make and return get request using http client
     // make request to RESOURCE_URL followed by the "id" as path param
     // (try using Javascript template string - back ticks and ${} syntax to create desired url)
-    return of({} as any); // remove this when you provide real implementation
+    return this.httpClient.get<Customer>(`${RESOURCE_URL}/${id}`); 
   }
 
   update(customer: Customer): Observable<Customer> {
@@ -43,7 +43,9 @@ export class CustomersBackendService {
     // in customer object as data payload to be sent to the backend
     // use .pipe(tap()) to perform side-effect which will create info notification that customer was updated in case of successful request
     // (hint: use this.notificationService)
-    return of({} as any); // remove this when you provide real implementation
+    return this.httpClient
+      .put<Customer>(`${RESOURCE_URL}/${customer.id}`, customer)
+      .pipe(tap(() => this.notificationService.info('Customer updated'))); 
   }
 
   remove(id: number): Observable<void> {
@@ -51,6 +53,8 @@ export class CustomersBackendService {
     // make request to RESOURCE_URL followed by the "id" as path param
     // use .pipe(tap()) to perform side-effect which will create info notification that customer was removed in case of successful request
     // (hint: use this.notificationService)
-    return of({} as any); // remove this when you provide real implementation
+    return this.httpClient
+      .delete<void>(`${RESOURCE_URL}/${id}`)
+      .pipe(tap(() => this.notificationService.info('Customer deleted')));
   }
 }
